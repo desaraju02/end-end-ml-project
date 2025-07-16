@@ -27,9 +27,9 @@ class CustomException(Exception):
 
 
 
-# if __name__ == "__main__":
-#     try:
-#         1 / 0  # Example error
-#     except Exception as e:
-#         raise CustomException(e, sys) from e  # Raise custom exception with details
-#         # This will trigger the custom exception and print the error message
+if __name__ == "__main__":
+    try:
+        1 / 0  # Example error
+    except Exception as e:
+        raise CustomException(e, sys) from e  # Raise custom exception with details
+        # This will trigger the custom exception and print the error message
