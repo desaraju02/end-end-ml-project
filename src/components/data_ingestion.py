@@ -8,6 +8,9 @@ from dataclasses import dataclass
 from src.exception import CustomException
 from src.components.data_transformation import DataTransformationConfig
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
+from src.utils import save_object, load_object
 
 @dataclass
 class DataIngestionConfig:
@@ -53,8 +56,14 @@ if __name__ == "__main__":
     obj = DataIngestion()
     obj.initiate_data_ingestion()
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(
+    train_arr, test_arr,_ = data_transformation.initiate_data_transformation(
         train_path=obj.ingestion_config.train_data_path,
         test_path=obj.ingestion_config.test_data_path
     )
+    model_trainer = ModelTrainer()
+    best_model_name, best_model_score = model_trainer.initiate_model_trainer(
+        train_array=train_arr,
+        test_array=test_arr
+    )
+    logging.info(f"Best model: {best_model_name} with score: {best_model_score}")
     logging.info("Preprocessor object created successfully")
