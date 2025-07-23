@@ -1,6 +1,7 @@
 import os
 import sys
 import joblib
+import dill
 import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error
@@ -42,6 +43,11 @@ def load_object(file_path):
     Raises:
     CustomException: If there is an error during the loading process.
     """
+    try:
+        with open(file_path,"rb") as file_obj:
+            return joblib.load(file_obj)
+    except Exception as e:
+        raise CustomException(e, sys)
 
 def evaluate_models(X_train,y_train,X_test,y_test,models):
     try:
